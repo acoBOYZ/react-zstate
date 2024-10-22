@@ -54,8 +54,8 @@ const useGlobalStore = create<StateStore & Actions>((set) => ({
  *
  * @template T - The type of the state data.
  * @param {string | string[]} key - The unique key for the state.
- * @param {T} [initialData] - The initial data for the state.
- * @returns {[T | undefined, (data: T | ((prevState: T) => T)) => void, () => void]}
+ * @param {T} initialData - The initial data for the state.
+ * @returns {[T, (data: T | ((prevState: T) => T)) => void, () => void]}
  *   - The current state, a function to update the state, and a function to reset the state.
  *
  * @example
@@ -73,19 +73,21 @@ const useGlobalStore = create<StateStore & Actions>((set) => ({
  */
 export function useZState<T>(
   key: string | string[],
-  initialData?: T
-): [T | undefined, (data: T | ((prevState: T) => T)) => void, () => void] {
+  initialData: T
+): [T, (data: T | ((prevState: T) => T)) => void, () => void] {
   const hashedKey = hashKey(key);
 
+  // Initialize the state if it hasn't been initialized yet
   useEffect(() => {
     const store = useGlobalStore.getState();
     if (store[hashedKey] === undefined) {
-      store.setInitialData(key, initialData as T);
+      store.setInitialData(key, initialData);
     }
   }, [hashedKey, initialData]);
 
+  // Select the state from the store
   const state = useGlobalStore(
-    useCallback((state) => state[hashedKey] as T | undefined, [hashedKey])
+    useCallback((state) => state[hashedKey] || initialData as T, [hashedKey, initialData])
   );
 
   const setState = useCallback(

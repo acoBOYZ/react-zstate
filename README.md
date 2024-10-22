@@ -26,7 +26,6 @@ import { useZState } from '@acoboyz/react-zstate';
 
 #### Basic Example
 ```tsx
-Copy code
 import React from 'react';
 import { useZState } from '@acoboyz/react-zstate';
 
@@ -186,7 +185,7 @@ function usePersistentState<T>(key: string, initialData: T) {
 
 ## Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests on the [GitHub repository](https://github.com/acoBOYZ/react-qstate).
+Contributions are welcome! Feel free to open issues or submit pull requests on the [GitHub repository](https://github.com/acoBOYZ/react-zstate).
 
 ## License
 
