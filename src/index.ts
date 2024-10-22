@@ -49,14 +49,22 @@ const useGlobalStore = create<StateStore & Actions>((set) => ({
   },
 }));
 
+export type Dispatch<T> = ((prevState: T) => T);
+export type DispatchFn<T> = (data: T | Dispatch<T>) => void;
+export type ResetFn = () => void;
+
 /**
  * Custom hook for managing state with Zustand without serialization.
  *
  * @template T - The type of the state data.
  * @param {string | string[]} key - The unique key for the state.
  * @param {T} initialData - The initial data for the state.
- * @returns {[T, (data: T | ((prevState: T) => T)) => void, () => void]}
- *   - The current state, a function to update the state, and a function to reset the state.
+ * @returns {[T, DispatchFn<T>, ResetFn]}
+ * 
+ * @desc The current state, a function to update the state, and a function to reset the state.
+ * 
+ * @type {DispatchFn<T> = (data: T | Dispatch<T>) => void}
+ * @type {ResetFn = () => void}
  *
  * @example
  * // Using the hook with a string key
@@ -74,10 +82,9 @@ const useGlobalStore = create<StateStore & Actions>((set) => ({
 export function useZState<T>(
   key: string | string[],
   initialData: T
-): [T, (data: T | ((prevState: T) => T)) => void, () => void] {
+): [T, DispatchFn<T>, ResetFn] {
   const hashedKey = hashKey(key);
 
-  // Initialize the state if it hasn't been initialized yet
   useEffect(() => {
     const store = useGlobalStore.getState();
     if (store[hashedKey] === undefined) {
@@ -85,13 +92,12 @@ export function useZState<T>(
     }
   }, [hashedKey, initialData]);
 
-  // Select the state from the store
-  const state = useGlobalStore(
+  const state = useGlobalStore<T>(
     useCallback((state) => state[hashedKey] || initialData as T, [hashedKey, initialData])
   );
 
   const setState = useCallback(
-    (data: T | ((prevState: T) => T)) => {
+    (data: T | Dispatch<T>) => {
       useGlobalStore.getState().setState(key, data);
     },
     [key]

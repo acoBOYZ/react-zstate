@@ -1,6 +1,6 @@
 {
   "name": "@acoboyz/react-zstate",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "StateHook for managing, caching and syncing asynchronous and remote data in React powered by zustand",
   "author": "acoBOYZ",
   "license": "MIT",
