@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 package-lock.json
 pnpm-lock.yaml
+bun.lockb
 dist
 dist-ssr
 dist.tar.gz

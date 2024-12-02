@@ -1,15 +1,28 @@
 import { create } from 'zustand';
 import { useEffect, useCallback } from 'react';
+import { LRUCache } from 'lru-cache';
+
+const keyCache = new LRUCache<string, string>({
+  max: 500,
+  ttl: 1000 * 60 * 10,
+});
 
 const hashKey = (key: string | string[]): string => {
   const strKey = typeof key === 'string' ? key : key.join('|');
+
+  if (keyCache.has(strKey)) {
+    return keyCache.get(strKey)!;
+  }
 
   let hash = 5381;
   for (let i = 0; i < strKey.length; i++) {
     const char = strKey.charCodeAt(i);
     hash = (hash * 33) ^ char;
   }
-  return (hash >>> 0).toString(36);
+
+  const hashedKey = (hash >>> 0).toString(36);
+  keyCache.set(strKey, hashedKey);
+  return hashedKey;
 };
 
 type StateStore = {

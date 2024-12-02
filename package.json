@@ -1,6 +1,6 @@
 {
   "name": "@acoboyz/react-zstate",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "StateHook for managing, caching and syncing asynchronous and remote data in React powered by zustand",
   "author": "acoBOYZ",
   "license": "MIT",
@@ -52,30 +52,32 @@
     "hooks"
   ],
   "dependencies": {
+    "lru-cache": "^11.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "zustand": "^5.0.0"
+    "zustand": "^5.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.8",
-    "@babel/preset-env": "^7.25.8",
-    "@babel/preset-react": "^7.25.7",
-    "@babel/preset-typescript": "^7.25.7",
-    "@tanstack/config": "^0.13.4",
-    "@types/react": "^18.3.11",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "@tanstack/config": "^0.14.0",
+    "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.10.0",
-    "@typescript-eslint/parser": "^8.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "ajv": "^8.17.1",
     "eslint": "^8.57.1",
     "eslint-plugin-json": "^4.0.1",
     "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.13",
+    "eslint-plugin-react-refresh": "^0.4.15",
     "glob": "^11.0.0",
-    "publint": "^0.2.11",
+    "publint": "^0.2.12",
     "rimraf": "^6.0.1",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.9",
-    "vite-plugin-dts": "^4.2.4"
+    "typescript": "^5.7.2",
+    "vite": "^6.0.2",
+    "vite-plugin-dts": "^4.3.0"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0 || ^19.0.0"
